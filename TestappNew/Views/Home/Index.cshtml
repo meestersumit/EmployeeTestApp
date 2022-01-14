@@ -1,0 +1,71 @@
+﻿@using System.Data;
+@using TestappNew.Models;
+@model EmployeeDetails
+@{
+    ViewBag.Title = "Code Test Form";
+}
+<div>
+    <div class="row">
+        <div class="col-md-8 panel panel-default">
+            @using (Html.BeginForm("Index", "Home", new { ReturnUrl = ViewBag.ReturnUrl },
+            FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Employee Details Form</h4>
+                <hr />
+                <div>
+                    <h3>@TempData["Message"]</h3>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="email">Employee Type:</label>
+                    @Html.DropDownList("EmpType", Model.EmployeeTypes, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="email">Working  Days:</label>
+                    @Html.TextBoxFor(m => m.workingdays, new { @class = "form-control", @type = "number" })
+                </div>
+                <div class="form-group">
+                    <label for="email">Vacation Days:</label>
+                    @Html.TextBoxFor(m => m.Vacationgdays, new { @class = "form-control" })
+                </div>
+                <br />
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>
+<br />
+<h2>Employee Details: </h2>
+<div class="panel panel-default">
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Employee Type</th>
+                        <th>Employee Name</th>
+                        <th>Vacation Days</th>
+                        <th>Working Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in ViewBag.dt.Rows)
+                    {
+                        <tr>
+                            <td>@row["Employee Id"]</td>
+                            <td>@row["Employee Type"]</td>
+                            <td>@row["Employee Name"]</td>
+                            <td>@row["Vacation Days"]</td>
+                            <td>@row["Working Days"]</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
